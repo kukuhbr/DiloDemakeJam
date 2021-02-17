@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Accelerate : MonoBehaviour
+namespace NFS.Car.Inputs.Commands
 {
-    // Start is called before the first frame update
-    void Start()
+    public class Accelerate : Command
     {
-        
-    }
+        public override void Execute()
+        {
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        }
     }
 }
