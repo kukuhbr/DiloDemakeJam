@@ -57,41 +57,76 @@ public class WheelDrive : MonoBehaviour
 	{
 		m_Wheels[0].ConfigureVehicleSubsteps(criticalSpeed, stepsBelow, stepsAbove);
 
-		float angle = maxAngle * Input.GetAxis("Horizontal");
+        /*float angle = maxAngle * Input.GetAxis("Horizontal");
 		float torque = maxTorque * Input.GetAxis("Vertical");
 
-		float handBrake = Input.GetKey(KeyCode.X) ? brakeTorque : 0;
+		float handBrake = Input.GetKey(KeyCode.X) ? brakeTorque : 0;*/
 
-		foreach (WheelCollider wheel in m_Wheels)
-		{
-			// A simple car where front wheels steer while rear ones drive.
-			if (wheel.transform.localPosition.z > 0)
-				wheel.steerAngle = angle;
+        ApplyHandBrake(Input.GetAxis("Fire1"));
+        ApplySteerAngle(Input.GetAxis("Horizontal"));
+        ApplyTorque(Input.GetAxis("Vertical"));
+        UpdateVisualWheel();
+	}
 
-			if (wheel.transform.localPosition.z < 0)
-			{
-				wheel.brakeTorque = handBrake;
-			}
+    //input value 0 - 1
+    private void ApplyHandBrake(float handBrakeInput)
+    {
+        float handBrake = handBrakeInput > 0 ? brakeTorque : 0;
+        foreach (WheelCollider wheel in m_Wheels)
+        {
+            if (wheel.transform.localPosition.z < 0)
+            {
+                wheel.brakeTorque = handBrake;
+            }
+        }
+    }
 
-			if (wheel.transform.localPosition.z < 0 && driveType != DriveType.FrontWheelDrive)
-			{
-				wheel.motorTorque = torque;
-			}
+    //input value 0 - 1
+    private void ApplySteerAngle(float angleInput)
+    {
+        float angle = maxAngle * angleInput;
+        foreach (WheelCollider wheel in m_Wheels)
+        {
+            // A simple car where front wheels steer while rear ones drive.
+            if (wheel.transform.localPosition.z > 0)
+            {
+                wheel.steerAngle = angle;
+            }
+        }
+    }
 
-			if (wheel.transform.localPosition.z >= 0 && driveType != DriveType.RearWheelDrive)
-			{
-				wheel.motorTorque = torque;
-			}
+    //input value 0 - 1
+    private void ApplyTorque(float torqueInput)
+    {
+        float torque = maxTorque * torqueInput;
 
-			// Update visual wheels if any.
-			if (wheelShape) 
-			{
-				Quaternion q;
-				Vector3 p;
-				wheel.GetWorldPose (out p, out q);
+        foreach (WheelCollider wheel in m_Wheels)
+        {
+            if (wheel.transform.localPosition.z < 0 && driveType != DriveType.FrontWheelDrive)
+            {
+                wheel.motorTorque = torque;
+            }
 
-				// Assume that the only child of the wheelcollider is the wheel shape.
-				Transform shapeTransform = wheel.transform.GetChild (0);
+            if (wheel.transform.localPosition.z >= 0 && driveType != DriveType.RearWheelDrive)
+            {
+                wheel.motorTorque = torque;
+            }
+        }
+    }
+
+    private void UpdateVisualWheel()
+    {
+        foreach (WheelCollider wheel in m_Wheels)
+        {
+            // Update visual wheels if any.
+            if (wheelShape)
+            {
+                Quaternion q;
+                Vector3 p;
+                wheel.GetWorldPose(out p, out q);
+
+                // Assume that the only child of the wheelcollider is the wheel shape.
+                Transform shapeTransform = wheel.transform.GetChild(0);
 
                 if (wheel.name == "a0l" || wheel.name == "a1l" || wheel.name == "a2l")
                 {
@@ -103,7 +138,7 @@ public class WheelDrive : MonoBehaviour
                     shapeTransform.position = p;
                     shapeTransform.rotation = q;
                 }
-			}
-		}
-	}
+            }
+        }
+    }
 }
