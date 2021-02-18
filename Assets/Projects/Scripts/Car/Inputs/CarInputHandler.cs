@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using NFS.Car.Inputs.Commands;
+using NFS.Car.Movements;
 
 namespace NFS.Car.Inputs
 {
     public class CarInputHandler : MonoBehaviour
     {
+        public CarMovement movement;
+
         private Command bAccel;
         private Command bNothing;
         private Command bHBrake;
@@ -19,13 +22,13 @@ namespace NFS.Car.Inputs
         // Start is called before the first frame update
         void Start()
         {
-            bAccel = new Accelerate();
-            bNothing = new DoNothing();
-            bHBrake = new HandBrake();
-            bNos = new Nos();
-            bSGearUp = new ShiftGearUp();
-            bSGearDown = new ShiftGearDown();
-            bSteer = new Steer();
+            bAccel = new Accelerate(movement);
+            bNothing = new DoNothing(movement);
+            bHBrake = new HandBrake(movement);
+            bNos = new Nos(movement);
+            bSGearUp = new ShiftGearUp(movement);
+            bSGearDown = new ShiftGearDown(movement);
+            bSteer = new Steer(movement);
         }
 
         // Update is called once per frame
@@ -124,27 +127,27 @@ namespace NFS.Car.Inputs
 
         private float GetInputSteer()
         {
-            return Input.GetAxis("Horizontals");
+            return Input.GetAxis("Horizontal");
         }
 
         private float GetInputHandBrake()
         {
-            return Input.GetAxis("Fire1");
+            return Input.GetAxis("Jump");
         }
 
         private float GetInputNos()
         {
-            return Input.GetAxis("Fire2");
+            return Input.GetAxis("Fire3");
         }
 
         private float GetInputShiftGearUp()
         {
-            return Input.GetAxis("Fire3");
+            return Input.GetAxis("Fire1");
         }
 
         private float GetInputShiftGearDown()
         {
-            return Input.GetAxis("Fire4");
+            return Input.GetAxis("Fire2");
         }
     }
 }

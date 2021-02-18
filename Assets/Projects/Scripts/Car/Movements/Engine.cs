@@ -4,16 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using UnityEngine;
+
 namespace NFS.Car.Movements
 {
-    public class Engine
+    public class Engine : MonoBehaviour
     {
-        private float hP;
-
-        public Engine(float horsePower)
-        {
-            hP = horsePower;
-        }
+        public float hP;
 
         public float GetHorsePower()
         {

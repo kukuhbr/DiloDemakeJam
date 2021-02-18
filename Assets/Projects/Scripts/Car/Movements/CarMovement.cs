@@ -12,11 +12,13 @@ namespace NFS.Car.Movements
     {
         public GearEngine gearEngine;
         public WheelDrive wheelDrive;
-        public Nos nos;
+        public NosEngine nos;
 
         private void Start()
         {
-            
+            gearEngine = GetComponent<GearEngine>();
+            wheelDrive = GetComponent<WheelDrive>();
+            nos = GetComponent<NosEngine>();
         }
         private void FixedUpdate()
         {

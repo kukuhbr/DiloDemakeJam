@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using UnityEngine;
+
 namespace NFS.Car.Movements
 {
-    public class Nos
+    public class NosEngine : MonoBehaviour
     {
         private float currentTorque = 0;
         private float currentCapacity;
@@ -14,7 +16,7 @@ namespace NFS.Car.Movements
         private float nosCapacity;
         private bool isNosMode = false;
 
-        public Nos(float power, float capacity)
+        public NosEngine(float power, float capacity)
         {
             torquePower = power;
             nosCapacity = capacity;

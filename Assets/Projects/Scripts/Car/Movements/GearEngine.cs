@@ -12,18 +12,16 @@ namespace NFS.Car.Movements
         public List<float> maxTorque;
         public float maxRPM = 8500;
 
-        private Nos nos;
-        private int currentGear;
         private List<Gear> gears;
+
+        private NosEngine nos;
+        private int currentGear = 0;        
         private float currentRPM = 0;
         
         // Start is called before the first frame update
         void Start()
         {
-            for (int i = 0; i < gears.Count; i++)
-            {
-                gears[i] = new Gear(i, maxTorque[i]);
-            }
+            SetupGears();
         }
 
         // Update is called once per frame
@@ -35,10 +33,32 @@ namespace NFS.Car.Movements
         //accelInputPower value (-1 -> 1)
         public void Accelerate(float accelInputPower)
         {
-            if (currentRPM < maxRPM)
+            float delta = (65 / gears[currentGear].GetGearNumber()) * accelInputPower;
+
+            if ((currentRPM <= maxRPM) && (currentRPM >= -maxRPM))
             {
-                currentRPM = currentRPM + ((65 / gears[currentGear].GetGearNumber()) * accelInputPower);
+                currentRPM = currentRPM + delta;
             }
+            else
+            {
+                currentRPM = maxRPM * Mathf.Round(accelInputPower);
+            }
+            Debug.Log(currentRPM);
+
+            /*if (accelInputPower > 0)
+            {
+                if (currentRPM < maxRPM)
+                {
+                    currentRPM = currentRPM + delta;
+                }
+            }
+            else if (accelInputPower < 0)
+            {
+                if (currentRPM > -maxRPM)
+                {
+                    currentRPM = currentRPM + delta;
+                }
+            }*/
             ApplyTorqueToWheel();
         }
 
@@ -95,6 +115,15 @@ namespace NFS.Car.Movements
         private void ApplyTorqueToWheel()
         {
             wheelDrive.ApplyTorque(CalculateTorque());
+        }
+
+        private void SetupGears()
+        {
+            gears = new List<Gear>(maxTorque.Count);
+            for (int i = 0; i < maxTorque.Count; i++)
+            {
+                gears.Add(new Gear(i + 1, maxTorque[i]));
+            }
         }
     }
 }
