@@ -12,7 +12,8 @@ namespace NFS.Car.Inputs
         private Command bNothing;
         private Command bHBrake;
         private Command bNos;
-        private Command bSGear;
+        private Command bSGearUp;
+        private Command bSGearDown;
         private Command bSteer;
 
         // Start is called before the first frame update
@@ -22,7 +23,8 @@ namespace NFS.Car.Inputs
             bNothing = new DoNothing();
             bHBrake = new HandBrake();
             bNos = new Nos();
-            bSGear = new ShiftGear();
+            bSGearUp = new ShiftGearUp();
+            bSGearDown = new ShiftGearDown();
             bSteer = new Steer();
         }
 
@@ -53,11 +55,11 @@ namespace NFS.Car.Inputs
         {
             if (IsInputShiftGearUp())
             {
-                bSGear.Execute();
+                bSGearUp.Execute();
             }
             else if (IsInputShiftGearDown())
             {
-                bSGear.Execute();
+                bSGearDown.Execute();
             }
         }
 

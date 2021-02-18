@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NFS.Car.Inputs.Commands
 {
-    class ShiftGear : Command
+    class ShiftGearDown : Command
     {
         public override void Execute()
         {
