@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using TMPro;
 
 namespace NFS.Car.Movements
 {
     public class GearEngine : MonoBehaviour
     {
+        public TextMeshProUGUI textGUI;
         public WheelDrive wheelDrive;
         public Engine engine;
         public List<float> maxTorque;
@@ -43,22 +45,7 @@ namespace NFS.Car.Movements
             {
                 currentRPM = maxRPM * Mathf.Round(accelInputPower);
             }
-            Debug.Log(currentRPM);
-
-            /*if (accelInputPower > 0)
-            {
-                if (currentRPM < maxRPM)
-                {
-                    currentRPM = currentRPM + delta;
-                }
-            }
-            else if (accelInputPower < 0)
-            {
-                if (currentRPM > -maxRPM)
-                {
-                    currentRPM = currentRPM + delta;
-                }
-            }*/
+            
             ApplyTorqueToWheel();
         }
 
@@ -94,14 +81,21 @@ namespace NFS.Car.Movements
                 torque =  (63025 * engine.GetHorsePower() / currentRPM);
             }
             torque = ApplyNos(torque);
-            if (torque > gears[currentGear].GetMaxTorque())
+            
+            float result = 0;
+            if (
+                (torque > gears[currentGear].GetMaxTorque()) 
+                && (torque < -gears[currentGear].GetMaxTorque())
+                )
             {
-                return gears[currentGear].GetMaxTorque();
+                result = gears[currentGear].GetMaxTorque();
             }
             else
             {
-                return torque;
+                result = torque;
             }
+            textGUI.text = torque.ToString();
+            return result;
         }
 
         //to do : Nos
