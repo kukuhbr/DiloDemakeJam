@@ -10,11 +10,13 @@ namespace NFS.Car.Movements
         public WheelDrive wheelDrive;
         public Engine engine;
         public List<float> maxTorque;
+        public float maxRPM = 8500;
+
+        private Nos nos;
         private int currentGear;
         private List<Gear> gears;
         private float currentRPM = 0;
-        public float maxRPM = 8500;
-
+        
         // Start is called before the first frame update
         void Start()
         {
@@ -37,6 +39,7 @@ namespace NFS.Car.Movements
             {
                 currentRPM = currentRPM + ((65 / gears[currentGear].GetGearNumber()) * accelInputPower);
             }
+            ApplyTorqueToWheel();
         }
 
         public void ShiftGearUp()
@@ -61,22 +64,32 @@ namespace NFS.Car.Movements
 
         private float CalculateTorque()
         {
+            float torque;
             if (currentRPM == 0)
             {
-                return 0;
+                torque =  0;
             }
             else
             {
-                float torque =  (63025 * engine.GetHorsePower() / currentRPM);
-                if (torque > gears[currentGear].GetMaxTorque())
-                {
-                    return gears[currentGear].GetMaxTorque();
-                }
-                else
-                {
-                    return torque;
-                }
+                torque =  (63025 * engine.GetHorsePower() / currentRPM);
             }
+            torque = ApplyNos(torque);
+            if (torque > gears[currentGear].GetMaxTorque())
+            {
+                return gears[currentGear].GetMaxTorque();
+            }
+            else
+            {
+                return torque;
+            }
+        }
+
+        //to do : Nos
+        private float ApplyNos(float torque)
+        {
+            float nos = 0;
+            torque = torque + nos;
+            return torque;
         }
 
         private void ApplyTorqueToWheel()
