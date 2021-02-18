@@ -95,10 +95,9 @@ public class WheelDrive : MonoBehaviour
         }
     }
 
-    //input value 0 - 1
-    private void ApplyTorque(float torqueInput)
+    public void ApplyTorque(float torque)
     {
-        float torque = maxTorque * torqueInput;
+        //float torque = maxTorque * torqueInput;
 
         foreach (WheelCollider wheel in m_Wheels)
         {
