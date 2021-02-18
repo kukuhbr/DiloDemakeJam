@@ -51,7 +51,11 @@ namespace NFS.Car.Inputs
 
         private void HandleShiftGearInput()
         {
-            if (IsInputShiftGear())
+            if (IsInputShiftGearUp())
+            {
+                bSGear.Execute();
+            }
+            else if (IsInputShiftGearDown())
             {
                 bSGear.Execute();
             }
@@ -83,27 +87,62 @@ namespace NFS.Car.Inputs
 
         private bool IsInputAccelerate()
         {
-            return Input.GetAxis("Vertical") != 0;
+            return GetInputAccelerate() != 0;
         }
 
         private bool IsInputSteer()
         {
-            return Input.GetAxis("Horizontals") != 0;
+            return GetInputSteer() != 0;
         }
 
         private bool IsInputHandBrake()
         {
-            return Input.GetAxis("Fire1") != 0;
+            return GetInputHandBrake() != 0;
         }
 
         private bool IsInputNos()
         {
-            return Input.GetAxis("Fire2") != 0;
+            return GetInputNos() != 0;
         }
 
-        private bool IsInputShiftGear()
+        private bool IsInputShiftGearUp()
         {
-            return Input.GetAxis("Fire3") != 0;
+            return GetInputShiftGearUp() != 0;
+        }
+
+        private bool IsInputShiftGearDown()
+        {
+            return GetInputShiftGearDown() != 0;
+        }
+
+        private float GetInputAccelerate()
+        {
+            return Input.GetAxis("Vertical");
+        }
+
+        private float GetInputSteer()
+        {
+            return Input.GetAxis("Horizontals");
+        }
+
+        private float GetInputHandBrake()
+        {
+            return Input.GetAxis("Fire1");
+        }
+
+        private float GetInputNos()
+        {
+            return Input.GetAxis("Fire2");
+        }
+
+        private float GetInputShiftGearUp()
+        {
+            return Input.GetAxis("Fire3");
+        }
+
+        private float GetInputShiftGearDown()
+        {
+            return Input.GetAxis("Fire4");
         }
     }
 }
