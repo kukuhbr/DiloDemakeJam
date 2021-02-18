@@ -48,10 +48,11 @@ namespace NFS.Car.Inputs
 
         private void HandleAccelerateInput()
         {
-            if (IsInputAccelerate())
+            bAccel.Execute(GetInputAccelerate());
+            /*if (IsInputAccelerate())
             {
-                bAccel.Execute(GetInputAccelerate());
-            }
+                
+            }*/
         }
 
         private void HandleShiftGearInput()
