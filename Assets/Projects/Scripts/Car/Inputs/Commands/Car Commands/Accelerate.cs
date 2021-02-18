@@ -16,7 +16,14 @@ namespace NFS.Car.Inputs.Commands
         public override void Execute(float input)
         {
             valueInput = input;
-            movement.gearEngine.Accelerate(input);
+            if (valueInput == 0)
+            {
+                movement.gearEngine.ReleaseAccelerate();                
+            }
+            else
+            {
+                movement.gearEngine.Accelerate(input);
+            }
         }
     }
 }

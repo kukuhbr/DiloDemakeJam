@@ -95,9 +95,10 @@ public class WheelDrive : MonoBehaviour
         }
     }
 
-    public void ApplyTorque(float torque)
+    public void ApplyTorque(float torqueInput)
     {
-        //float torque = maxTorque * torqueInput;
+        //float torque = torqueInput;
+        float torque = maxTorque * torqueInput;
 
         foreach (WheelCollider wheel in m_Wheels)
         {
@@ -110,6 +111,7 @@ public class WheelDrive : MonoBehaviour
             {
                 wheel.motorTorque = torque;
             }
+            Debug.Log(gameObject.GetComponent<Rigidbody>().velocity.magnitude);
         }
     }
 

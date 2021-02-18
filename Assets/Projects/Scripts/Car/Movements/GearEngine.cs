@@ -32,6 +32,20 @@ namespace NFS.Car.Movements
 
         }
 
+        public void ReleaseAccelerate()
+        {
+            currentRPM = 0;
+            /*if (currentRPM > 0)
+            {
+                currentRPM = currentRPM - Time.deltaTime * 1000;
+            }
+            else if (currentRPM < 0)
+            {
+                currentRPM = currentRPM + Time.deltaTime * 1000;
+            }*/
+            Debug.Log(currentRPM);
+        }
+
         //accelInputPower value (-1 -> 1)
         public void Accelerate(float accelInputPower)
         {
