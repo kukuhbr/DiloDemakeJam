@@ -2,19 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GearState : MonoBehaviour
+
+namespace NFS.Car.Movements
 {
-    private List<Gear> gears;
-
-    // Start is called before the first frame update
-    void Start()
+    public class GearState : MonoBehaviour
     {
-        
-    }
+        private List<Gear> gears;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // Start is called before the first frame update
+        void Start()
+        {
+            gears = new Gear();
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
     }
 }
