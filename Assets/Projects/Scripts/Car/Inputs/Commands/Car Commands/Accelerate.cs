@@ -6,9 +6,9 @@ namespace NFS.Car.Inputs.Commands
 {
     public class Accelerate : Command
     {
-        public override void Execute()
+        public override void Execute(float input)
         {
-
+            valueInput = input;
         }
     }
 }

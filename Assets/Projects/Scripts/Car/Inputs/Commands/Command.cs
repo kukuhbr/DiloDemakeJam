@@ -9,6 +9,16 @@ namespace NFS.Car.Inputs.Commands
         protected float timeInput;
         protected float valueInput;
 
-        public abstract void Execute();
+        public abstract void Execute(float input);
+
+        public float GetTimeInput()
+        {
+            return timeInput;
+        }
+
+        public float GetValueInput()
+        {
+            return valueInput;
+        }
     }
 }

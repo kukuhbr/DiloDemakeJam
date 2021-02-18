@@ -47,7 +47,7 @@ namespace NFS.Car.Inputs
         {
             if (IsInputAccelerate())
             {
-                bAccel.Execute();
+                bAccel.Execute(GetInputAccelerate());
             }
         }
 
@@ -55,11 +55,11 @@ namespace NFS.Car.Inputs
         {
             if (IsInputShiftGearUp())
             {
-                bSGearUp.Execute();
+                bSGearUp.Execute(GetInputShiftGearUp());
             }
             else if (IsInputShiftGearDown())
             {
-                bSGearDown.Execute();
+                bSGearDown.Execute(GetInputShiftGearDown());
             }
         }
 
@@ -67,7 +67,7 @@ namespace NFS.Car.Inputs
         {
             if (IsInputSteer())
             {
-                bSteer.Execute();
+                bSteer.Execute(GetInputSteer());
             }
         }
 
@@ -75,7 +75,7 @@ namespace NFS.Car.Inputs
         {
             if (IsInputNos())
             {
-                bNos.Execute();
+                bNos.Execute(GetInputNos());
             }
         }
 
@@ -83,7 +83,7 @@ namespace NFS.Car.Inputs
         {
             if (IsInputHandBrake())
             {
-                bHBrake.Execute();
+                bHBrake.Execute(GetInputHandBrake());
             }
         }
 

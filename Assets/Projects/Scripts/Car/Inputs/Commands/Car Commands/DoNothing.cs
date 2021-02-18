@@ -8,7 +8,7 @@ namespace NFS.Car.Inputs.Commands
 {
     public class DoNothing : Command
     {
-        public override void Execute()
+        public override void Execute(float input)
         {
             
         }

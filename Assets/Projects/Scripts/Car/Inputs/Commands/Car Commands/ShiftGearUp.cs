@@ -8,9 +8,9 @@ namespace NFS.Car.Inputs.Commands
 {
     class ShiftGearUp : Command
     {
-        public override void Execute()
+        public override void Execute(float input)
         {
-            
+            valueInput = input;
         }
     }
 }
