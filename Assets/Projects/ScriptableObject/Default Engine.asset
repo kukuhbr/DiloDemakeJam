@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b75e05bf3d2cc4841bd8f2be6472f023, type: 3}
   m_Name: Default Engine
   m_EditorClassIdentifier: 
-  horsePower: 100
+  horsePower: 10000
