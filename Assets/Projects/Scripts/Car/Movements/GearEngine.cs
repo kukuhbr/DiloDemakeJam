@@ -16,7 +16,6 @@ namespace NFS.Car.Movements
 
         private List<Gear> gears;
 
-        private NosEngine nos;
         private int currentGear = 0;        
         private float currentRPM = 0;
         
@@ -80,7 +79,6 @@ namespace NFS.Car.Movements
             {
                 torque =  (63025 * engine.GetHorsePower() / currentRPM);
             }
-            torque = ApplyNos(torque);
             
             float result = 0;
             if (
@@ -96,14 +94,6 @@ namespace NFS.Car.Movements
             }
             textGUI.text = torque.ToString();
             return result;
-        }
-
-        //to do : Nos
-        private float ApplyNos(float torque)
-        {
-            float nos = 0;
-            torque = torque + nos;
-            return torque;
         }
 
         private void ApplyTorqueToWheel()
