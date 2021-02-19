@@ -11,12 +11,11 @@ namespace NFS.Car.Movements
         public TextMeshProUGUI textGUI;
         public WheelDrive wheelDrive;
         public Engine engine;
-        public List<float> maxTorque;
+        public GearSetup gearSetup;
         public float maxRPM = 8500;
 
         private List<Gear> gears;
-
-        private NosEngine nos;
+        private float currentSpeed;
         private int currentGear = 0;        
         private float currentRPM = 0;
         
@@ -24,113 +23,117 @@ namespace NFS.Car.Movements
         void Start()
         {
             SetupGears();
+            currentRPM = 0;
         }
 
         // Update is called once per frame
-        void Update()
+        void FixedUpdate()
         {
-
-        }
-
-        public void ReleaseAccelerate()
-        {
-            currentRPM = 0;
-            /*if (currentRPM > 0)
-            {
-                currentRPM = currentRPM - Time.deltaTime * 1000;
-            }
-            else if (currentRPM < 0)
-            {
-                currentRPM = currentRPM + Time.deltaTime * 1000;
-            }*/
-            Debug.Log(currentRPM);
+            currentSpeed = gameObject.GetComponent<Rigidbody>().velocity.magnitude;
         }
 
         //accelInputPower value (-1 -> 1)
         public void Accelerate(float accelInputPower)
         {
-            float delta = (65 / gears[currentGear].GetGearNumber()) * accelInputPower;
+            int currentGearNumber = gears[currentGear].GetGearNumber();
+            float delta = (65 / currentGearNumber) * accelInputPower;
 
-            if ((currentRPM <= maxRPM) && (currentRPM >= -maxRPM))
+            //drop rpm
+            if (accelInputPower == 0)
+            {
+                ReleaseRPM();
+            }
+            //increase rpm
+            else if (IsRPMInRange(currentRPM + delta))
             {
                 currentRPM = currentRPM + delta;
             }
+            //constant max rpm
             else
             {
-                currentRPM = maxRPM * Mathf.Round(accelInputPower);
+                SetToMaxRPM(accelInputPower);
             }
             
-            ApplyTorqueToWheel();
+            ApplyRPMToWheel();
         }
 
         public void ShiftGearUp()
         {
-            float torque = CalculateTorque();
+            float currentMaxSpeed = gears[currentGear].GetMaxSpeed();
             if (currentGear < gears.Count)
             {
                 currentGear = currentGear + 1;
-                currentRPM = Mathf.Max(maxRPM, maxRPM * torque / gears[currentGear].GetMaxTorque());                
+                currentRPM = Mathf.Max(maxRPM, maxRPM * currentSpeed / currentMaxSpeed);
             }
         }
 
         public void ShiftGearDown()
         {
-            float torque = CalculateTorque();
+            float currentMaxSpeed = GetCurrentMaxSpeed();
             if (currentGear > 0)
             {
                 currentGear = currentGear - 1;
-                currentRPM = Mathf.Max(maxRPM, maxRPM * torque / gears[currentGear].GetMaxTorque());
+                currentRPM = Mathf.Max(maxRPM, maxRPM * currentSpeed / currentMaxSpeed);
             }
         }
 
-        private float CalculateTorque()
+        private void ApplyRPMToWheel()
         {
-            float torque;
-            if (currentRPM == 0)
-            {
-                torque =  0;
-            }
-            else
-            {
-                torque =  (63025 * engine.GetHorsePower() / currentRPM);
-            }
-            torque = ApplyNos(torque);
-            
-            float result = 0;
-            if (
-                (torque > gears[currentGear].GetMaxTorque()) 
-                && (torque < -gears[currentGear].GetMaxTorque())
-                )
-            {
-                result = gears[currentGear].GetMaxTorque();
-            }
-            else
-            {
-                result = torque;
-            }
-            textGUI.text = torque.ToString();
-            return result;
-        }
-
-        //to do : Nos
-        private float ApplyNos(float torque)
-        {
-            float nos = 0;
-            torque = torque + nos;
-            return torque;
-        }
-
-        private void ApplyTorqueToWheel()
-        {
-            wheelDrive.ApplyTorque(CalculateTorque());
+            float maxSpeed = GetCurrentMaxSpeed();
+            textGUI.text = currentSpeed.ToString();
+            wheelDrive.ApplyRPM(currentRPM, maxRPM, maxSpeed);
         }
 
         private void SetupGears()
         {
-            gears = new List<Gear>(maxTorque.Count);
-            for (int i = 0; i < maxTorque.Count; i++)
+            gears = new List<Gear>(gearSetup.GetCount());
+            for (int i = 0; i < gearSetup.GetCount(); i++)
             {
-                gears.Add(new Gear(i + 1, maxTorque[i]));
+                gears.Add(new Gear(i + 1, gearSetup.maxSpeedPerGear[i]));
+            }
+        }
+
+        private bool IsSpeedinRange(float speed)
+        {
+            float currentMaxSpeed = GetCurrentMaxSpeed();
+            return ((speed <= currentMaxSpeed) && (speed >= -currentMaxSpeed));
+        }
+
+        private bool IsRPMInRange(float rpm)
+        {
+            return ((rpm <= maxRPM) && (rpm >= -maxRPM));
+        }
+
+        private float GetCurrentMaxSpeed()
+        {
+            return gears[currentGear].GetMaxSpeed();
+        }
+
+        private void ReleaseRPM()
+        {
+            if (currentRPM > 0)
+            {
+                currentRPM = currentRPM - (1000 * Time.deltaTime);
+            }
+            else if (currentRPM < 0)
+            {
+                currentRPM = currentRPM + (1000 * Time.deltaTime);
+            }
+            else
+            {
+                currentRPM = 0;
+            }
+        }
+
+        private void SetToMaxRPM(float accelInput)
+        {
+            if (accelInput > 0)
+            {
+                currentRPM = maxRPM;
+            }
+            else if (accelInput < 0)
+            {
+                currentRPM = -maxRPM;
             }
         }
     }

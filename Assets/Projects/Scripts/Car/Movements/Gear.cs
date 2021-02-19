@@ -7,12 +7,12 @@ namespace NFS.Car.Movements
     public class Gear
     {
         private int gearNumber;
-        private float maxTorque;
+        private float maxSpeed;
 
-        public Gear(int gearInput, float maxTorqueInput)
+        public Gear(int gearInput, float maxSpeedInput)
         {
             gearNumber = gearInput;
-            maxTorque = maxTorqueInput;
+            maxSpeed = maxSpeedInput;
         }
 
         public int GetGearNumber()
@@ -20,14 +20,14 @@ namespace NFS.Car.Movements
             return gearNumber;
         }
 
-        public float GetMaxTorque()
+        public float GetMaxSpeed()
         {
-            return maxTorque;
+            return maxSpeed;
         }
 
-        public bool IsMaxTorque(float torque)
+        public bool IsMaxSpeed(float speed)
         {
-            return torque >= maxTorque;
+            return speed >= maxSpeed;
         }
     }
 }
