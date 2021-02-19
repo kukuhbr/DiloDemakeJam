@@ -10,6 +10,7 @@ namespace NFS.Car.Inputs.Commands
 {
     class ShiftGearDown : Command
     {
+        private bool isPress = false;
         public ShiftGearDown(CarMovement movementInput) : base(movementInput)
         {
 
@@ -18,6 +19,15 @@ namespace NFS.Car.Inputs.Commands
         public override void Execute(float input)
         {
             valueInput = input;
+            if ((input != 0) && (!isPress))
+            {
+                isPress = true;
+                movement.gearEngine.ShiftGearDown();
+            }
+            else if (input == 0)
+            {
+                isPress = false;
+            }
         }
     }
 }
