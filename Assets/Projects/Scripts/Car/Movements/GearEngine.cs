@@ -59,8 +59,8 @@ namespace NFS.Car.Movements
 
         public void ShiftGearUp()
         {
-            float currentMaxSpeed = gears[currentGear].GetMaxSpeed();
-            if (currentGear < gears.Count)
+            float currentMaxSpeed = GetCurrentMaxSpeed();
+            if (currentGear + 1 < gears.Count)
             {
                 currentGear = currentGear + 1;
                 currentRPM = Mathf.Max(maxRPM, maxRPM * currentSpeed / currentMaxSpeed);
@@ -70,7 +70,7 @@ namespace NFS.Car.Movements
         public void ShiftGearDown()
         {
             float currentMaxSpeed = GetCurrentMaxSpeed();
-            if (currentGear > 0)
+            if (currentGear - 1 >= 0)
             {
                 currentGear = currentGear - 1;
                 currentRPM = Mathf.Max(maxRPM, maxRPM * currentSpeed / currentMaxSpeed);
@@ -80,7 +80,10 @@ namespace NFS.Car.Movements
         private void ApplyRPMToWheel()
         {
             float maxSpeed = GetCurrentMaxSpeed();
-            textGUI.text = currentSpeed.ToString();
+            textGUI.text =
+                "speed : " + Mathf.Round(currentSpeed).ToString()
+                + " max speed : " + Mathf.Round(maxSpeed).ToString()
+                +" gear : " + currentGear;
             wheelDrive.ApplyRPM(currentRPM, maxRPM, maxSpeed);
         }
 
