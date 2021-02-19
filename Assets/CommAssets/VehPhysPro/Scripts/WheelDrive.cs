@@ -96,10 +96,11 @@ public class WheelDrive : MonoBehaviour
         }
     }
 
-    public void ApplyRPM(float rpmInput, float maxRPM, float maxSpeed)
+    //should I add max speed here?
+    public void ApplyRPM(float rpmInput, float maxRPM, float speed, float maxSpeed)
     {
         float rpmPercent = rpmInput / maxRPM;
-        float rpm = rpmPercent * maxSpeed;
+        float rpm = rpmPercent * maxSpeed * (maxRPM) * 0.6f * 4 /1000;
 
         foreach (WheelCollider wheel in m_Wheels)
         {

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Default Gear Setup
   m_EditorClassIdentifier: 
   maxSpeedPerGear:
-  - 1000
-  - 2000
-  - 3000
-  - 5000
-  - 8500
+  - 40
+  - 70
+  - 80
+  - 110
+  - 150

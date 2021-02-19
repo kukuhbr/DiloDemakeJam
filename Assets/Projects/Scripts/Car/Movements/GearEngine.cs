@@ -83,8 +83,10 @@ namespace NFS.Car.Movements
             textGUI.text =
                 "speed : " + Mathf.Round(currentSpeed).ToString()
                 + " max speed : " + Mathf.Round(maxSpeed).ToString()
-                +" gear : " + currentGear;
-            wheelDrive.ApplyRPM(currentRPM, maxRPM, maxSpeed);
+                +" gear : " + currentGear
+                +" rpm : " + currentRPM
+                +" currentMaxRPM : " + maxRPM;
+            wheelDrive.ApplyRPM(currentRPM, maxRPM, currentSpeed, maxSpeed);
         }
 
         private void SetupGears()
@@ -116,11 +118,11 @@ namespace NFS.Car.Movements
         {
             if (currentRPM > 1)
             {
-                currentRPM = currentRPM - (1000 * Time.deltaTime);
+                currentRPM = currentRPM - (maxRPM * Time.deltaTime);
             }
             else if (currentRPM < -1)
             {
-                currentRPM = currentRPM + (1000 * Time.deltaTime);
+                currentRPM = currentRPM + (maxRPM * Time.deltaTime);
             }
             else
             {
