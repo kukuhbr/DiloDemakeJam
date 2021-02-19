@@ -114,11 +114,11 @@ namespace NFS.Car.Movements
 
         private void ReleaseRPM()
         {
-            if (currentRPM > 0)
+            if (currentRPM > 1)
             {
                 currentRPM = currentRPM - (1000 * Time.deltaTime);
             }
-            else if (currentRPM < 0)
+            else if (currentRPM < -1)
             {
                 currentRPM = currentRPM + (1000 * Time.deltaTime);
             }
