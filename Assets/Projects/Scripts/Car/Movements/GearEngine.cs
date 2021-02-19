@@ -11,13 +11,16 @@ namespace NFS.Car.Movements
         public WheelDrive wheelDrive;
         public Engine engine;
         public GearSetup gearSetup;
+        public GearShiftCategory gearShiftCategory;
         public float maxRPM = 8500;
 
         private List<Gear> gears;
         private float currentSpeed;
-        private int currentGear = 0;        
+        private int currentGear = 0;
         private float currentRPM = 0;
-        
+        private bool isShiftingGearUp = false;
+        private string shiftCategory = "";
+
         // Start is called before the first frame update
         void Start()
         {
@@ -52,18 +55,23 @@ namespace NFS.Car.Movements
             {
                 SetToMaxRPM(accelInputPower);
             }
-            
+
             ApplyRPMToWheel();
         }
 
         public void ShiftGearUp()
         {
+            isShiftingGearUp = true;
             float currentMaxSpeed = GetCurrentMaxSpeed();
+            float shiftCategoryValue = gearShiftCategory.GetCategoryValue(currentSpeed, currentMaxSpeed);
+
+            shiftCategory = gearShiftCategory.GetCategory(currentSpeed, currentMaxSpeed);
             if (currentGear + 1 < gears.Count)
             {
                 currentGear = currentGear + 1;
-                currentRPM = Mathf.Max(maxRPM, maxRPM * currentSpeed / currentMaxSpeed);
+                currentRPM = Mathf.Max(maxRPM, maxRPM * currentSpeed / currentMaxSpeed) + shiftCategoryValue;
             }
+            isShiftingGearUp = false;
         }
 
         public void ShiftGearDown()
@@ -106,6 +114,16 @@ namespace NFS.Car.Movements
             return gears[currentGear];
         }
 
+        public string GetShiftCategory()
+        {
+            return shiftCategory;
+        }
+
+        public bool IsShiftingGearUp()
+        {
+            return isShiftingGearUp;
+        }
+
         private void ApplyRPMToWheel()
         {
             float maxSpeed = GetCurrentMaxSpeed();
@@ -131,8 +149,6 @@ namespace NFS.Car.Movements
         {
             return ((rpm <= maxRPM) && (rpm >= -maxRPM));
         }
-
-
 
         private void ReleaseRPM()
         {

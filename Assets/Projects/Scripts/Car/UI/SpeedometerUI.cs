@@ -15,6 +15,8 @@ namespace NFS.Car.UI
         public Slider slider;
         public TextMeshProUGUI speedText;
         public TextMeshProUGUI gearText;
+        public TextMeshProUGUI shiftCategoryText;
+        public TextMeshProUGUI percentageText;
 
         // Start is called before the first frame update
         void Start()
@@ -33,6 +35,25 @@ namespace NFS.Car.UI
             ShowGearUI();
             ShowSpeedometerUI();
             ShowSpeedUI();
+            ShowShiftCategory();
+            ShowShiftPercentage();
+            if (gearEngine.IsShiftingGearUp())
+            {
+                
+            }
+        }
+
+        private void ShowShiftPercentage()
+        {
+            float currentSpeed = gearEngine.GetCurrentSpeed();
+            float currentMaxSpeed = gearEngine.GetCurrentMaxSpeed();
+            float result = (currentSpeed / currentMaxSpeed) * 100;
+            percentageText.text = Mathf.Round(result).ToString() + "%";
+        }
+
+        private void ShowShiftCategory()
+        {
+            shiftCategoryText.text = gearEngine.GetShiftCategory();
         }
 
         private void ShowSpeedUI()
