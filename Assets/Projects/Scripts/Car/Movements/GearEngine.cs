@@ -66,6 +66,7 @@ namespace NFS.Car.Movements
             float shiftCategoryValue = gearShiftCategory.GetCategoryValue(currentSpeed, currentMaxSpeed);
 
             shiftCategory = gearShiftCategory.GetCategory(currentSpeed, currentMaxSpeed);
+            Debug.Log(currentSpeed + ">" + currentMaxSpeed + ">" + shiftCategoryValue + ">" + shiftCategory);
             if (currentGear + 1 < gears.Count)
             {
                 currentGear = currentGear + 1;
