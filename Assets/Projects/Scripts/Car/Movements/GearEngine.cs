@@ -4,6 +4,8 @@ using UnityEngine;
 
 using TMPro;
 
+using NFS.Car.UI;
+
 namespace NFS.Car.Movements
 {
     public class GearEngine : MonoBehaviour
@@ -13,6 +15,7 @@ namespace NFS.Car.Movements
         public Engine engine;
         public GearSetup gearSetup;
         public float maxRPM = 8500;
+        public SpeedometerUI speedometer;
 
         private List<Gear> gears;
         private float currentSpeed;
@@ -86,6 +89,7 @@ namespace NFS.Car.Movements
                 +" gear : " + currentGear
                 +" rpm : " + currentRPM
                 +" currentMaxRPM : " + maxRPM;
+            speedometer.UpdateUI(currentSpeed, maxSpeed);
             wheelDrive.ApplyRPM(currentRPM, maxRPM, currentSpeed, maxSpeed);
         }
 
