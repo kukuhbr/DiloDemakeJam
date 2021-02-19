@@ -4,18 +4,14 @@ using UnityEngine;
 
 using TMPro;
 
-using NFS.Car.UI;
-
 namespace NFS.Car.Movements
 {
     public class GearEngine : MonoBehaviour
     {
-        public TextMeshProUGUI textGUI;
         public WheelDrive wheelDrive;
         public Engine engine;
         public GearSetup gearSetup;
         public float maxRPM = 8500;
-        public SpeedometerUI speedometer;
 
         private List<Gear> gears;
         private float currentSpeed;
@@ -80,16 +76,39 @@ namespace NFS.Car.Movements
             }
         }
 
+        public float GetCurrentRPM()
+        {
+            return currentRPM;
+        }
+
+        public float GetMaxRPM()
+        {
+            return maxRPM;
+        }
+
+        public float GetCurrentSpeed()
+        {
+            return currentSpeed;
+        }
+
+        public float GetCurrentMaxSpeed()
+        {
+            return gears[currentGear].GetMaxSpeed();
+        }
+
+        public int GetCurrentGearNumber()
+        {
+            return currentGear;
+        }
+
+        public Gear GetCurrentGear()
+        {
+            return gears[currentGear];
+        }
+
         private void ApplyRPMToWheel()
         {
             float maxSpeed = GetCurrentMaxSpeed();
-            textGUI.text =
-                "speed : " + Mathf.Round(currentSpeed).ToString()
-                + " max speed : " + Mathf.Round(maxSpeed).ToString()
-                +" gear : " + currentGear
-                +" rpm : " + currentRPM
-                +" currentMaxRPM : " + maxRPM;
-            speedometer.UpdateUI(currentSpeed, maxSpeed);
             wheelDrive.ApplyRPM(currentRPM, maxRPM, currentSpeed, maxSpeed);
         }
 
@@ -113,10 +132,7 @@ namespace NFS.Car.Movements
             return ((rpm <= maxRPM) && (rpm >= -maxRPM));
         }
 
-        private float GetCurrentMaxSpeed()
-        {
-            return gears[currentGear].GetMaxSpeed();
-        }
+
 
         private void ReleaseRPM()
         {
