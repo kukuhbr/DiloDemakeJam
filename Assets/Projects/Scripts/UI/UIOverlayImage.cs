@@ -9,7 +9,7 @@ public class UIOverlayImage : MonoBehaviour
     [SerializeField] GameObject imagePrefab;
     [SerializeField] List<SpriteSequence> spriteSequences;
     //private Image image;
-    void Start()
+    void Awake()
     {
         //image = GetComponentInChildren<Image>();
         GameState.OnGameStart += OnGameStartHandler;
