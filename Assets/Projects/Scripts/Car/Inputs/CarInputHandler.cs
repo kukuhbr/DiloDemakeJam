@@ -81,32 +81,32 @@ namespace NFS.Car.Inputs
             }
         }
 
-        private bool IsInputAccelerate()
+        public bool IsInputAccelerate()
         {
             return GetInputAccelerate() != 0;
         }
 
-        private bool IsInputSteer()
+        public bool IsInputSteer()
         {
             return GetInputSteer() != 0;
         }
 
-        private bool IsInputHandBrake()
+        public bool IsInputHandBrake()
         {
             return GetInputHandBrake() != 0;
         }
 
-        private bool IsInputNos()
+        public bool IsInputNos()
         {
             return GetInputNos() != 0;
         }
 
-        private bool IsInputShiftGearUp()
+        public bool IsInputShiftGearUp()
         {
             return GetInputShiftGearUp() != 0;
         }
 
-        private bool IsInputShiftGearDown()
+        public bool IsInputShiftGearDown()
         {
             return GetInputShiftGearDown() != 0;
         }
@@ -123,7 +123,7 @@ namespace NFS.Car.Inputs
 
         private float GetInputHandBrake()
         {
-            return Input.GetAxis("Jump");
+            return Input.GetAxis("Fire1");
         }
 
         private float GetInputNos()

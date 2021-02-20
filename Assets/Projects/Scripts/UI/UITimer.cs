@@ -27,12 +27,12 @@ public class UITimer : MonoBehaviour
             timerText.text = "00:00.00";
         }
 
-        for (int i = 0; i < lapTimerText.Length; i++) {
-            if (i < myTimer.lapTimer.Count) {
-                lapTimerText[i].text = Timer.ConvertToString(myTimer.lapTimer[i]);
-            } else {
-                lapTimerText[i].text = "--:--.--";
-            }
-        }
+        // for (int i = 0; i < lapTimerText.Length; i++) {
+        //     if (i < myTimer.lapTimer.Count) {
+        //         lapTimerText[i].text = Timer.ConvertToString(myTimer.lapTimer[i]);
+        //     } else {
+        //         lapTimerText[i].text = "--:--.--";
+        //     }
+        // }
     }
 }

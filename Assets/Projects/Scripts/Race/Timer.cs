@@ -66,7 +66,8 @@ public class Timer : MonoBehaviour
 
     void OnRaceEndHandler()
     {
-
+        Debug.Log("Race ended");
+        isTimerShouldRecord = false;
     }
 
     void OnGameEndHandler()
