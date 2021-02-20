@@ -49,22 +49,12 @@ namespace NFS.Car.Inputs
         private void HandleAccelerateInput()
         {
             bAccel.Execute(GetInputAccelerate());
-            /*if (IsInputAccelerate())
-            {
-                
-            }*/
         }
 
         private void HandleShiftGearInput()
         {
-            if (IsInputShiftGearUp())
-            {
-                bSGearUp.Execute(GetInputShiftGearUp());
-            }
-            else if (IsInputShiftGearDown())
-            {
-                bSGearDown.Execute(GetInputShiftGearDown());
-            }
+            bSGearUp.Execute(GetInputShiftGearUp());
+            bSGearDown.Execute(GetInputShiftGearDown());
         }
 
         private void HandleSteerInput()
@@ -143,12 +133,12 @@ namespace NFS.Car.Inputs
 
         private float GetInputShiftGearUp()
         {
-            return Input.GetAxis("Fire1");
+            return Input.GetAxis("GearUp");
         }
 
         private float GetInputShiftGearDown()
         {
-            return Input.GetAxis("Fire2");
+            return Input.GetAxis("GearDown");
         }
     }
 }

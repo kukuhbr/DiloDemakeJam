@@ -40,6 +40,7 @@ public class WheelDrive : MonoBehaviour
 		for (int i = 0; i < m_Wheels.Length; ++i) 
 		{
 			var wheel = m_Wheels [i];
+            wheel.ConfigureVehicleSubsteps(5, 5, 5);
 
 			// Create wheel shapes only when needed.
 			if (wheelShape != null)
@@ -64,7 +65,7 @@ public class WheelDrive : MonoBehaviour
 
         ApplyHandBrake(Input.GetAxis("Fire1"));
         ApplySteerAngle(Input.GetAxis("Horizontal"));
-        ApplyTorque(Input.GetAxis("Vertical"));
+        //ApplyTorque(Input.GetAxis("Vertical"));
         UpdateVisualWheel();
 	}
 
@@ -95,23 +96,23 @@ public class WheelDrive : MonoBehaviour
         }
     }
 
-    public void ApplyTorque(float torqueInput)
+    //should I add max speed here?
+    public void ApplyRPM(float rpmInput, float maxRPM, float speed, float maxSpeed)
     {
-        //float torque = torqueInput;
-        float torque = maxTorque * torqueInput;
+        float rpmPercent = rpmInput / maxRPM;
+        float rpm = rpmPercent * maxSpeed * (maxRPM) * 0.6f * 4 /1000;
 
         foreach (WheelCollider wheel in m_Wheels)
         {
             if (wheel.transform.localPosition.z < 0 && driveType != DriveType.FrontWheelDrive)
             {
-                wheel.motorTorque = torque;
+                wheel.motorTorque = rpm;
             }
 
             if (wheel.transform.localPosition.z >= 0 && driveType != DriveType.RearWheelDrive)
             {
-                wheel.motorTorque = torque;
+                wheel.motorTorque = rpm;
             }
-            Debug.Log(gameObject.GetComponent<Rigidbody>().velocity.magnitude);
         }
     }
 
