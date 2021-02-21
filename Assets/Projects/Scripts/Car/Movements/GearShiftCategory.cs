@@ -15,6 +15,8 @@ namespace NFS.Car.Movements
         public List<float> minPercents;
         public List<float> maxPercents;
         public List<float> categoryValues;
+        public List<Sprite> categorySprites;
+        public List<Sprite> categoryAlerts;
         public float missValue;
 
         public bool IsGearShiftInCategory(string category, float val, float maxVal)
@@ -31,6 +33,34 @@ namespace NFS.Car.Movements
             {
                 return false;
             }            
+        }
+
+        public Sprite GetSpriteCategory(float val, float maxVal)
+        {
+            if (IsInAnyCategory(val, maxVal))
+            {
+                string category = GetCategory(val, maxVal);
+                int index = categories.IndexOf(category);
+                return categorySprites[index];
+            }
+            else
+            {
+                return categorySprites[categoryAlerts.Count - 1];
+            }
+        }
+
+        public Sprite GetAlerts(float val, float maxVal)
+        {
+            if (IsInAnyCategory(val, maxVal))
+            {
+                string category = GetCategory(val, maxVal);
+                int index = categories.IndexOf(category);
+                return categoryAlerts[index];
+            }
+            else
+            {
+                return categoryAlerts[categoryAlerts.Count - 1];
+            }
         }
 
         public string GetCategory(float val, float maxVal)
@@ -52,7 +82,7 @@ namespace NFS.Car.Movements
         public bool IsInAnyCategory(float val, float maxVal)
         {
             string category = GetCategory(val, maxVal);
-            return (category == "");
+            return (category != "");
         }
 
         public float GetCategoryValue(float val, float maxVal)
