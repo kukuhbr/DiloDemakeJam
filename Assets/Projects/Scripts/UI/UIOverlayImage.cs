@@ -73,7 +73,7 @@ public class UIOverlayImage : MonoBehaviour
 
     void OnRaceEndHandler()
     {
-        StartSequence("RaceEnded");
+        //StartSequence("RaceEnded");
     }
 
     void OnGameEndHandler()

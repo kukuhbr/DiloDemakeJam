@@ -36,6 +36,7 @@ public class GameState : MonoBehaviour
         if (OnRaceEnd != null) {
             OnRaceEnd();
         }
+        InvokeGameEnd();
     }
 
     public static void InvokeGameEnd()
