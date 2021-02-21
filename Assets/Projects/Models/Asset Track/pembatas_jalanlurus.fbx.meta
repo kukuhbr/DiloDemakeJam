@@ -3,7 +3,12 @@ guid: 29b21726f879ec84f8234cc67c1d3bbe
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Street.001
+    second: {fileID: 2100000, guid: 8cef1cdd785b92846b38af5fe50ea5a1, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
