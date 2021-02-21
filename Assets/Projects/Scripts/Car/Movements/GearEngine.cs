@@ -105,6 +105,11 @@ namespace NFS.Car.Movements
             return gears[currentGear].GetMaxSpeed();
         }
 
+        public float GetMaxSpeed()
+        {
+            return gears[gears.Count-1].GetMaxSpeed();
+        }
+
         public int GetCurrentGearNumber()
         {
             return currentGear;
