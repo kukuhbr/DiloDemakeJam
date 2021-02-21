@@ -19,7 +19,10 @@ namespace NFS.Car.Movements
         private int currentGear = 0;
         private float currentRPM = 0;
         private bool isShiftingGearUp = false;
-        private string shiftCategory = "";
+        private Sprite shiftCategory;
+        private Sprite alertCategory;
+        private float shiftTimeCheck = 0.1f;
+        private float shiftTime;
 
         // Start is called before the first frame update
         void Start()
@@ -32,6 +35,8 @@ namespace NFS.Car.Movements
         void FixedUpdate()
         {
             currentSpeed = gameObject.GetComponent<Rigidbody>().velocity.magnitude;
+            ResetIsShiftingGearUp();
+            UpdateAlertCategory();
         }
 
         //accelInputPower value (-1 -> 1)
@@ -63,26 +68,39 @@ namespace NFS.Car.Movements
         {
             isShiftingGearUp = true;
             float currentMaxSpeed = GetCurrentMaxSpeed();
-            float shiftCategoryValue = gearShiftCategory.GetCategoryValue(currentSpeed, currentMaxSpeed);
 
-            shiftCategory = gearShiftCategory.GetCategory(currentSpeed, currentMaxSpeed);
-            Debug.Log(currentSpeed + ">" + currentMaxSpeed + ">" + shiftCategoryValue + ">" + shiftCategory);
-            if (currentGear + 1 < gears.Count)
+            if (currentMaxSpeed == 0)
             {
-                currentGear = currentGear + 1;
-                currentRPM = Mathf.Max(maxRPM, maxRPM * currentSpeed / currentMaxSpeed) + shiftCategoryValue;
+                float shiftCategoryValue = gearShiftCategory.GetCategoryValue(currentRPM, maxRPM);
+                shiftCategory = gearShiftCategory.GetSpriteCategory(currentRPM, maxRPM);
+                Debug.Log(currentRPM + ">" + maxRPM + ">" + shiftCategoryValue + ">" + shiftCategory);
+                if (currentGear + 1 < gears.Count)
+                {
+                    currentGear = currentGear + 1;
+                    currentRPM = (Mathf.Min(maxRPM, currentRPM)/2) + shiftCategoryValue;
+                }
             }
-            isShiftingGearUp = false;
+            else
+            {
+                float shiftCategoryValue = gearShiftCategory.GetCategoryValue(currentSpeed, currentMaxSpeed);
+
+                shiftCategory = gearShiftCategory.GetSpriteCategory(currentSpeed, currentMaxSpeed);
+                Debug.Log(currentSpeed + ">" + currentMaxSpeed + ">" + shiftCategoryValue + ">" + shiftCategory);
+                if (currentGear + 1 < gears.Count)
+                {
+                    currentGear = currentGear + 1;
+                    currentRPM = (Mathf.Min(maxRPM, currentRPM)/2) + shiftCategoryValue;
+                }
+            }
         }
 
         public void ShiftGearDown()
         {
-            float currentMaxSpeed = GetCurrentMaxSpeed();
             if (currentGear - 1 >= 0)
             {
                 currentGear = currentGear - 1;
-                currentRPM = Mathf.Max(maxRPM, maxRPM * currentSpeed / currentMaxSpeed);
-            }
+                currentRPM = (Mathf.Min(maxRPM, currentRPM)/2);
+            }            
         }
 
         public float GetCurrentRPM()
@@ -120,9 +138,14 @@ namespace NFS.Car.Movements
             return gears[currentGear];
         }
 
-        public string GetShiftCategory()
+        public Sprite GetShiftCategory()
         {
             return shiftCategory;
+        }
+
+        public Sprite GetAlertCategory()
+        {
+            return alertCategory;
         }
 
         public bool IsShiftingGearUp()
@@ -181,6 +204,35 @@ namespace NFS.Car.Movements
             else if (accelInput < 0)
             {
                 currentRPM = -maxRPM;
+            }
+        }
+
+        private void ResetIsShiftingGearUp()
+        {
+            if (isShiftingGearUp)
+            {
+                shiftTime = shiftTime - Time.deltaTime;
+                if (shiftTime < 0)
+                {
+                    isShiftingGearUp = false;
+                }
+            }
+            else if (!isShiftingGearUp)
+            {
+                shiftTime = shiftTimeCheck;
+            }
+        }
+
+        private void UpdateAlertCategory()
+        {
+            float maxSpeed = GetCurrentMaxSpeed();
+            if (maxSpeed == 0)
+            {
+                alertCategory = gearShiftCategory.GetAlerts(currentRPM, maxRPM);
+            }
+            else
+            {
+                alertCategory = gearShiftCategory.GetAlerts(currentSpeed, GetCurrentMaxSpeed());
             }
         }
     }

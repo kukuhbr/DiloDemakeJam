@@ -13,23 +13,33 @@ MonoBehaviour:
   m_Name: DefaultShiftCategory
   m_EditorClassIdentifier: 
   categories:
+  - Over Rev
   - Perfect
   - Good
   - Bad
-  - Miss
   minPercents:
   - 0.9
   - 0.85
   - 0.75
   - 0
   maxPercents:
-  - 0.95
+  - 1.1
   - 0.9
   - 0.85
   - 0.75
   categoryValues:
+  - -5000
   - 1000
   - 500
-  - 0
   - -1000
+  categorySprites:
+  - {fileID: 21300000, guid: e9d6b882229d2784c8f96e52782f5d0d, type: 3}
+  - {fileID: 21300000, guid: fb6e2af22cb4e8a46975b215208772dd, type: 3}
+  - {fileID: 21300000, guid: 850d5d62817acff44819d487bc005de3, type: 3}
+  - {fileID: 21300000, guid: c55fca48a582799449614d8ef57f0cc7, type: 3}
+  categoryAlerts:
+  - {fileID: 21300000, guid: b684e20857a41ac41904786608f00e84, type: 3}
+  - {fileID: 21300000, guid: 62e80c74d5a8a004285e673a988e1706, type: 3}
+  - {fileID: 21300000, guid: 0fa65967373a009489a3820a44a5f542, type: 3}
+  - {fileID: 21300000, guid: a7189af98ec131f4492c3b5bdfb709d8, type: 3}
   missValue: -1000

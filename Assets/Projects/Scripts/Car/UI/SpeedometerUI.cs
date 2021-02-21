@@ -15,13 +15,18 @@ namespace NFS.Car.UI
         public Slider slider;
         public TextMeshProUGUI speedText;
         public TextMeshProUGUI gearText;
-        public TextMeshProUGUI shiftCategoryText;
         public TextMeshProUGUI percentageText;
+        public Image shiftAlertImage;
+        public Image shiftCategoryImage;
+        public Animator shiftCatAnimator;
+
+        private float animateTimeCheck = 0.1f;
+        private float animateTime;
 
         // Start is called before the first frame update
         void Start()
         {
-
+            shiftCategoryImage.color = new Color(255, 255, 255, 0);
         }
 
         // Update is called once per frame
@@ -35,12 +40,31 @@ namespace NFS.Car.UI
             ShowGearUI();
             ShowSpeedometerUI();
             ShowSpeedUI();
-            ShowShiftCategory();
             ShowShiftPercentage();
+            ShowAlert();
             if (gearEngine.IsShiftingGearUp())
             {
-                
+                ShowShiftCategory();
             }
+            if (animateTime > 0)
+            {
+                animateTime = animateTime - Time.deltaTime;
+            }
+            else
+            {
+                AnimateShiftCategory(false);
+                animateTime = 0;
+            }
+        }
+
+        private void AnimateShiftCategory(bool paramVal)
+        {
+            shiftCatAnimator.SetBool("isShow", paramVal);
+        }
+
+        private void ShowAlert()
+        {
+            shiftAlertImage.sprite = gearEngine.GetAlertCategory();
         }
 
         private void ShowShiftPercentage()
@@ -53,13 +77,16 @@ namespace NFS.Car.UI
 
         private void ShowShiftCategory()
         {
-            shiftCategoryText.text = gearEngine.GetShiftCategory();
+            shiftCategoryImage.sprite = gearEngine.GetShiftCategory();
+            AnimateShiftCategory(true);
+            animateTime = animateTimeCheck;
+            //shiftCategoryText.text = gearEngine.GetShiftCategory();
         }
 
         private void ShowSpeedUI()
         {
             float currentSpeed = gearEngine.GetCurrentSpeed();
-            speedText.text = Mathf.Round(currentSpeed).ToString() + "km/h";
+            speedText.text = Mathf.Round(currentSpeed).ToString();
         }
 
         private void ShowGearUI()
