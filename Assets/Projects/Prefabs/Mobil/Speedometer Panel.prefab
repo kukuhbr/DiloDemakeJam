@@ -876,7 +876,6 @@ MonoBehaviour:
   slider: {fileID: 9092121645197273784}
   speedText: {fileID: 9092121645023161612}
   gearText: {fileID: 2618388396154684052}
-  shiftCategoryText: {fileID: 9092121645905321458}
   percentageText: {fileID: 9092121645761095329}
   shiftAlertImage: {fileID: 4227870669193380976}
   shiftCategoryImage: {fileID: 3887778800025250550}
@@ -1328,8 +1327,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -20}
+  m_AnchoredPosition: {x: 0, y: -17.5}
+  m_SizeDelta: {x: 0, y: -55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &9092121645023161614
 GameObject:
@@ -1573,7 +1572,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
