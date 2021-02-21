@@ -23,12 +23,14 @@ namespace NFS.Car.Movements
         private Sprite alertCategory;
         private float shiftTimeCheck = 0.1f;
         private float shiftTime;
+        private bool isShiftingAllowed = false;
 
         // Start is called before the first frame update
         void Start()
         {
             SetupGears();
             currentRPM = 0;
+            GameState.OnRaceStart += AllowShifting;
         }
 
         // Update is called once per frame
@@ -64,8 +66,16 @@ namespace NFS.Car.Movements
             ApplyRPMToWheel();
         }
 
+        void AllowShifting()
+        {
+            isShiftingAllowed = true;
+        }
+
         public void ShiftGearUp()
         {
+            if (!isShiftingAllowed) {
+                return;
+            }
             isShiftingGearUp = true;
             float currentMaxSpeed = GetCurrentMaxSpeed();
 
@@ -96,11 +106,15 @@ namespace NFS.Car.Movements
 
         public void ShiftGearDown()
         {
+            if (!isShiftingAllowed) {
+                return;
+            }
+
             if (currentGear - 1 >= 0)
             {
                 currentGear = currentGear - 1;
                 currentRPM = (Mathf.Min(maxRPM, currentRPM)/2);
-            }            
+            }
         }
 
         public float GetCurrentRPM()

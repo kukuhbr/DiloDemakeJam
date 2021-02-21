@@ -10,10 +10,10 @@ public class UIFinished : MonoBehaviour
     [SerializeField] TextMeshProUGUI timerText;
     void Start()
     {
-        GameState.OnGameEnd += OnGameEndHandler;
+        GameState.OnRaceEnd += OnRaceEndHandler;
     }
 
-    void OnGameEndHandler()
+    void OnRaceEndHandler()
     {
         gameUI.SetActive(false);
         timerText.text = Timer.ConvertToString(timer.gameTimer);
@@ -22,6 +22,6 @@ public class UIFinished : MonoBehaviour
 
     void OnDestroy()
     {
-        GameState.OnGameEnd -= OnGameEndHandler;
+        GameState.OnRaceEnd -= OnRaceEndHandler;
     }
 }

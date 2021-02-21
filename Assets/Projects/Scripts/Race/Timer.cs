@@ -15,8 +15,8 @@ public class Timer : MonoBehaviour
         GameState.OnRaceStart += OnRaceStartHandler;
         LapManager.OnLapReached += OnLapReachedHandler;
         GameState.OnRaceEnd += OnRaceEndHandler;
-        GameState.OnGameEnd += OnGameEndHandler;
         lapTimer = new List<float>();
+        GameState.InvokeGameStart();
     }
 
     void Update()
@@ -70,17 +70,11 @@ public class Timer : MonoBehaviour
         isTimerShouldRecord = false;
     }
 
-    void OnGameEndHandler()
-    {
-
-    }
-
     void OnDestroy()
     {
         GameState.OnGameStart -= OnGameStartHandler;
         GameState.OnRaceStart -= OnRaceStartHandler;
         LapManager.OnLapReached -= OnLapReachedHandler;
         GameState.OnRaceEnd -= OnRaceEndHandler;
-        GameState.OnGameEnd -= OnGameEndHandler;
     }
 }

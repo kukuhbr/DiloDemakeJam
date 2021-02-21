@@ -11,8 +11,6 @@ public class GameState : MonoBehaviour
     public static event Action OnRaceStart;
     // Race end is when player reached goal
     public static event Action OnRaceEnd;
-    // Game end is when everything finishes (might not be needed)
-    public static event Action OnGameEnd;
 
     public static void InvokeGameStart()
     {
@@ -35,15 +33,6 @@ public class GameState : MonoBehaviour
         Debug.Log("RaceEnd");
         if (OnRaceEnd != null) {
             OnRaceEnd();
-        }
-        InvokeGameEnd();
-    }
-
-    public static void InvokeGameEnd()
-    {
-        Debug.Log("GameEnd");
-        if (OnGameEnd != null) {
-            OnGameEnd();
         }
     }
 }

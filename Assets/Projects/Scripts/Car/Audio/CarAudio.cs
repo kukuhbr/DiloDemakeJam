@@ -16,6 +16,7 @@ namespace NFS.Car.Audio
         [SerializeField] AudioSource oneShotSource;
         // 1
         [SerializeField] AudioClip[] audioClips;
+        private bool isRaceStarted = false;
         void Start()
         {
             gearEngine = GetComponent<GearEngine>();
@@ -23,12 +24,24 @@ namespace NFS.Car.Audio
             StartCoroutine(PlayEngine());
             //engineSource.Play();
             //brakeSource.Play();
+            GameState.OnRaceStart += OnRaceStartHandler;
+            GameState.OnRaceEnd += BrakeOnEnd;
         }
 
         void Update()
         {
             HandleHandBrakeInput();
             HandleOneShotInput();
+        }
+
+        void OnRaceStartHandler()
+        {
+            isRaceStarted = true;
+        }
+
+        void BrakeOnEnd()
+        {
+            StartCoroutine(PlayBrake());
         }
 
         void HandleHandBrakeInput()
@@ -47,11 +60,19 @@ namespace NFS.Car.Audio
         void HandleOneShotInput()
         {
             if (Input.GetButtonDown("GearDown")) {
-                oneShotSource.PlayOneShot(audioClips[0]);
+                if (isRaceStarted) {
+                    oneShotSource.PlayOneShot(audioClips[0]);
+                } else {
+                    oneShotSource.PlayOneShot(audioClips[2]);
+                }
             }
 
             if (Input.GetButtonDown("GearUp")) {
-                oneShotSource.PlayOneShot(audioClips[1]);
+                if (isRaceStarted) {
+                    oneShotSource.PlayOneShot(audioClips[1]);
+                } else {
+                    oneShotSource.PlayOneShot(audioClips[3]);
+                }
             }
 
             if (Input.GetButtonDown("Klaxxon")) {
@@ -76,10 +97,24 @@ namespace NFS.Car.Audio
 
         IEnumerator PlayBrake()
         {
-            while(true) {
-
+            while(gearEngine.GetCurrentSpeed() > 2f) {
+                brakeSource.mute = false;
                 yield return null;
             }
+            brakeSource.mute = true;
+        }
+
+        public void PlayOneShot(int i) {
+            if (i > audioClips.Length - 1)
+                return;
+            Debug.Log("PlayOneShot");
+            oneShotSource.PlayOneShot(audioClips[i]);
+        }
+
+        void OnDestroy()
+        {
+            GameState.OnRaceStart -= OnRaceStartHandler;
+            GameState.OnRaceEnd -= BrakeOnEnd;
         }
     }
 }

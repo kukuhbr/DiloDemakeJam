@@ -16,7 +16,6 @@ public class UIOverlayImage : MonoBehaviour
         GameState.OnRaceStart += OnRaceStartHandler;
         LapManager.OnLapReached += OnLapReachedHandler;
         GameState.OnRaceEnd += OnRaceEndHandler;
-        GameState.OnGameEnd += OnGameEndHandler;
     }
 
     public void StartSequence(string name) {
@@ -76,18 +75,12 @@ public class UIOverlayImage : MonoBehaviour
         //StartSequence("RaceEnded");
     }
 
-    void OnGameEndHandler()
-    {
-        //StartSequence("GameEnd");
-    }
-
     void OnDestroy()
     {
         GameState.OnGameStart -= OnGameStartHandler;
         GameState.OnRaceStart -= OnRaceStartHandler;
         LapManager.OnLapReached -= OnLapReachedHandler;
         GameState.OnRaceEnd -= OnRaceEndHandler;
-        GameState.OnGameEnd -= OnGameEndHandler;
     }
 }
 

@@ -31,13 +31,14 @@ public class WheelDrive : MonoBehaviour
 	public DriveType driveType;
 
     private WheelCollider[] m_Wheels;
+    private bool isAutoBrake = false;
 
     // Find all the WheelColliders down in the hierarchy.
 	void Start()
 	{
 		m_Wheels = GetComponentsInChildren<WheelCollider>();
 
-		for (int i = 0; i < m_Wheels.Length; ++i) 
+		for (int i = 0; i < m_Wheels.Length; ++i)
 		{
 			var wheel = m_Wheels [i];
             wheel.ConfigureVehicleSubsteps(5, 5, 5);
@@ -49,6 +50,8 @@ public class WheelDrive : MonoBehaviour
 				ws.transform.parent = wheel.transform;
 			}
 		}
+
+        GameState.OnRaceEnd += BrakeOnEnd;
 	}
 
 	// This is a really simple approach to updating wheels.
@@ -63,7 +66,11 @@ public class WheelDrive : MonoBehaviour
 
 		float handBrake = Input.GetKey(KeyCode.X) ? brakeTorque : 0;*/
 
-        ApplyHandBrake(Input.GetAxis("Fire1"));
+        if (isAutoBrake) {
+            ApplyHandBrake(.6f);
+        } else {
+            ApplyHandBrake(Input.GetAxis("Fire1"));
+        }
         ApplySteerAngle(Input.GetAxis("Horizontal"));
         //ApplyTorque(Input.GetAxis("Vertical"));
         UpdateVisualWheel();
@@ -94,6 +101,11 @@ public class WheelDrive : MonoBehaviour
                 wheel.steerAngle = angle;
             }
         }
+    }
+
+    private void BrakeOnEnd()
+    {
+        isAutoBrake = true;
     }
 
     //should I add max speed here?
