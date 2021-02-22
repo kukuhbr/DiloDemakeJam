@@ -37,7 +37,7 @@ public class CameraFollow : MonoBehaviour
             if (gearEngine.GetCurrentSpeed() > 3f) {
                 if (Input.GetButton("Horizontal")) {
                     xMod = xDistance * Input.GetAxis("Horizontal");
-                    xMod = Mathf.Lerp(0, xMod, 1-t);
+                    xMod = Mathf.Lerp(0, xMod, (1-t) * Time.deltaTime);
                 } else {
                     xMod = Mathf.Lerp(xMod, 0, Time.deltaTime);
                 }

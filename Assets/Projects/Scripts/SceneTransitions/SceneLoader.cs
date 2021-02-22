@@ -95,7 +95,7 @@ namespace Firefighter.Scenes
             if (!SceneLoaderData.Instance.IsLoadingScene())
             {
                 SceneLoaderData.Instance.SetNextScene(inputScene);
-                inputScene = "Loading Scene";
+                //inputScene = "Loading Scene";
             }
             else
             {

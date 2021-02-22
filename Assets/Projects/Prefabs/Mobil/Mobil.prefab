@@ -1256,6 +1256,7 @@ GameObject:
   - component: {fileID: 3681900142858533920}
   - component: {fileID: 3681900142858533916}
   - component: {fileID: 545102785}
+  - component: {fileID: 7965984501599479337}
   m_Layer: 10
   m_Name: Mobil
   m_TagString: Car
@@ -1424,6 +1425,19 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1009d100118ddff4c830cce4cc4f610e, type: 3}
   - {fileID: 8300000, guid: 3d87239ab9a335740b879ccbbb1ed2af, type: 3}
   - {fileID: 8300000, guid: abb455d2efbf8ad4085c3bcf318041eb, type: 3}
+--- !u!114 &7965984501599479337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3681900144173035577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54966da9806af8747b4ee3ede722bbc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flipRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &3681900144374368256
 GameObject:
   m_ObjectHideFlags: 0

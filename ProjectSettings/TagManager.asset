@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Car
   - Track
+  - TrackBalap
   layers:
   - Default
   - TransparentFX
