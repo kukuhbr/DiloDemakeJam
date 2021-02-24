@@ -13,12 +13,19 @@ public class BuildingSpawner : MonoBehaviour
     public int objectToSpawn;
     public float xRandom;
     public float zRandom;
+    public int objectSpawnFrequency;
     void Start()
     {
+        int counter = 0;
         tracks = GameObject.FindGameObjectsWithTag("Track");
         foreach (GameObject obj in tracks) {
             SpawnBuilding(obj.transform);
-            SpawnObjects(obj.transform);
+            if (counter == objectSpawnFrequency)
+            {
+                SpawnObjects(obj.transform);
+                counter = 0;
+            }
+            counter = counter + 1;
         }
     }
 

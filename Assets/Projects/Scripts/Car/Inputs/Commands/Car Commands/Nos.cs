@@ -18,6 +18,7 @@ namespace NFS.Car.Inputs.Commands
         public override void Execute(float input)
         {
             valueInput = input;
+            movement.nos.ApplyNos(input);
         }
     }
 }

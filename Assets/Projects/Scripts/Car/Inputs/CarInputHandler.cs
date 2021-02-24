@@ -67,10 +67,7 @@ namespace NFS.Car.Inputs
 
         private void HandleNosInput()
         {
-            if (IsInputNos())
-            {
-                bNos.Execute(GetInputNos());
-            }
+            bNos.Execute(GetInputNos());
         }
 
         private void HandleHandBrakeInput()

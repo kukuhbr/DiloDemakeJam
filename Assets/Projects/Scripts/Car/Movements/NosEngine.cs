@@ -6,55 +6,97 @@ using System.Threading.Tasks;
 
 using UnityEngine;
 
+using NFS.Car.Parts;
+
 namespace NFS.Car.Movements
 {
     public class NosEngine : MonoBehaviour
     {
-        private float currentTorque = 0;
+        public Nos nos;
+        public GearEngine gearEngine;
+        public LineRenderer nosLine;
+        private float currentPower;
         private float currentCapacity;
-        private float torquePower;
-        private float nosCapacity;
-        private bool isNosMode = false;
+        private bool isAllowNos = false;
 
-        public NosEngine(float power, float capacity)
+        private void Start()
         {
-            torquePower = power;
-            nosCapacity = capacity;
+            currentCapacity = nos.capacity;
+            currentPower = 0;
+            GameState.OnRaceStart += AllowNos;
+        }
+
+        private void FixedUpdate()
+        {
+            RegenNos();
+        }
+
+        public void ApplyNos(float nosInputForce)
+        {
+            if (isAllowNos)
+            {
+                DoNos(nosInputForce);
+            }
         }
 
         //To Do : Increase Nos for each time passed
         public void RegenNos()
         {
-            if ((!isNosMode) && (currentCapacity < nosCapacity))
+            if ((currentPower == 0) && (currentCapacity <= nos.capacity))
             {
-                currentCapacity = currentCapacity + 1;
+                currentCapacity = currentCapacity + (1 * nos.regenSpeed * Time.deltaTime);
+                //nosLine.enabled = false;
+            }
+            if (currentCapacity > nos.capacity)
+            {
+                currentCapacity = nos.capacity;
             }
         }
 
         //To Do : Decrease Nos Capacity for each time passed
-        public void DoNos()
+        public void DoNos(float inputForce)
         {
             if (currentCapacity > 0)
+            {                
+                currentPower = nos.power * inputForce;
+                currentCapacity = currentCapacity - 1 * Time.deltaTime;
+                nosLine.enabled = true;
+                nosLine.SetPosition(0, transform.position);
+                nosLine.SetPosition(1, transform.forward * -10);
+                if (gearEngine.GetCurrentSpeed() <= gearEngine.GetCurrentMaxSpeed())
+                {
+                    gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * currentPower, ForceMode.Impulse);
+                }
+            }
+            else
             {
-                currentTorque = torquePower;
-                currentCapacity = currentCapacity - 1;
-                isNosMode = true;
+                currentPower = 0;
             }
         }
 
-        public float GetTorquePower()
+        public float GetCurrentPower()
         {
-            return torquePower;
+            return currentPower;
+        }
+
+        public float GetCurrentCapacity()
+        {
+            return currentCapacity;
         }
 
         public float GetNosCapacity()
         {
-            return nosCapacity;
+            return nos.capacity;
         }
 
-        public float GetCurrentTorque()
+        public float GetNosPower()
         {
-            return currentTorque;
+            return nos.power;
+        }
+
+        private void AllowNos()
+        {
+            isAllowNos = true;
         }
     }
 }

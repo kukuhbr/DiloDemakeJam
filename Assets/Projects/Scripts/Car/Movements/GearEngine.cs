@@ -83,7 +83,7 @@ namespace NFS.Car.Movements
             {
                 float shiftCategoryValue = gearShiftCategory.GetCategoryValue(currentRPM, maxRPM);
                 shiftCategory = gearShiftCategory.GetSpriteCategory(currentRPM, maxRPM);
-                Debug.Log(currentRPM + ">" + maxRPM + ">" + shiftCategoryValue + ">" + shiftCategory);
+                //Debug.Log(currentRPM + ">" + maxRPM + ">" + shiftCategoryValue + ">" + shiftCategory);
                 if (currentGear + 1 < gears.Count)
                 {
                     currentGear = currentGear + 1;
@@ -95,7 +95,7 @@ namespace NFS.Car.Movements
                 float shiftCategoryValue = gearShiftCategory.GetCategoryValue(currentSpeed, currentMaxSpeed);
 
                 shiftCategory = gearShiftCategory.GetSpriteCategory(currentSpeed, currentMaxSpeed);
-                Debug.Log(currentSpeed + ">" + currentMaxSpeed + ">" + shiftCategoryValue + ">" + shiftCategory);
+                //Debug.Log(currentSpeed + ">" + currentMaxSpeed + ">" + shiftCategoryValue + ">" + shiftCategory);
                 if (currentGear + 1 < gears.Count)
                 {
                     currentGear = currentGear + 1;

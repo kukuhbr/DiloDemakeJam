@@ -28,6 +28,7 @@ public class CarReset : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.H))
         {
             currentPos = new Vector3(anchorPos.x, 0.0055f, anchorPos.z);
+            gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
             transform.position = currentPos;
             transform.rotation = anchorRot;
         }

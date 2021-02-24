@@ -21,7 +21,7 @@ public class PostProcessEffect : MonoBehaviour
     void Update()
     {
         float t = gearEngine.GetCurrentSpeed() / gearEngine.GetMaxSpeed();
-        Debug.Log(t);
+        //Debug.Log(t);
         chromatic.intensity.value = Mathf.Lerp(0, 1f, t);
         lensDistortion.intensity.value = Mathf.Lerp(0, -80, t);
     }
