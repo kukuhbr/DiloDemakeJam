@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CashManager : Singleton<MonoBehaviour>
+public class CashManager : Singleton<CashManager>
 {
-    private float cash = 0;
+    private float cash = 1000;
 
     // Start is called before the first frame update
     void Start()
