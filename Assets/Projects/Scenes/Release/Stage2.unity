@@ -21907,6 +21907,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1208909729, guid: dda68a70ce593cc48b5a33575fca37f7, type: 3}
+      propertyPath: blendDistance
+      value: 200
+      objectReference: {fileID: 0}
     - target: {fileID: 3681900144173035577, guid: dda68a70ce593cc48b5a33575fca37f7,
         type: 3}
       propertyPath: m_Name
