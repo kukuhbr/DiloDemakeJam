@@ -21383,10 +21383,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1208909729, guid: dda68a70ce593cc48b5a33575fca37f7, type: 3}
-      propertyPath: blendDistance
-      value: 200
-      objectReference: {fileID: 0}
     - target: {fileID: 1656373581, guid: dda68a70ce593cc48b5a33575fca37f7, type: 3}
       propertyPath: m_IsActive
       value: 1
