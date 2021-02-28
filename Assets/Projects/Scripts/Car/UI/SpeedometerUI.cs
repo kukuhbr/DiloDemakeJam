@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 
 using NFS.Car.Movements;
+using NFS.Car.Parts;
 
 namespace NFS.Car.UI
 {

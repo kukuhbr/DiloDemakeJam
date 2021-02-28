@@ -5,7 +5,7 @@ using UnityEngine;
 public class CarReset : MonoBehaviour
 {
     public Quaternion flipRotation;
-    public LineRenderer lineRenderer;
+    //public LineRenderer lineRenderer;
     private Vector3 currentPos;
     private Vector3 anchorPos;
     private Quaternion anchorRot;
@@ -72,8 +72,8 @@ public class CarReset : MonoBehaviour
         Vector3 down = new Vector3(currentPos.x, currentPos.y-100, currentPos.z);
         Vector3 startPos = new Vector3(currentPos.x, currentPos.y+100, currentPos.z);
 
-        lineRenderer.SetPosition(0, startPos);
-        lineRenderer.SetPosition(1, down);
+        //lineRenderer.SetPosition(0, startPos);
+        //lineRenderer.SetPosition(1, down);
         
 
         RaycastHit hit;

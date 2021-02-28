@@ -4,15 +4,21 @@ using UnityEngine;
 
 using TMPro;
 
+using NFS.Car.Parts;
+
 namespace NFS.Car.Movements
 {
     public class GearEngine : MonoBehaviour
     {
         public WheelDrive wheelDrive;
-        public Engine engine;
-        public GearSetup gearSetup;
+        public CarStats carStat;
+        //public Engine engine;
+        //public GearSetup gearSetup;
         public GearShiftCategory gearShiftCategory;
         public float maxRPM = 8500;
+
+        private float accel = 65;
+        private float baseMaxSpeed = 0;
 
         private List<Gear> gears;
         private float currentSpeed;
@@ -45,7 +51,7 @@ namespace NFS.Car.Movements
         public void Accelerate(float accelInputPower)
         {
             int currentGearNumber = gears[currentGear].GetGearNumber();
-            float delta = (65 / currentGearNumber) * accelInputPower;
+            float delta = (accel / currentGearNumber) * accelInputPower;
 
             //drop rpm
             if (accelInputPower == 0)
@@ -175,10 +181,11 @@ namespace NFS.Car.Movements
 
         private void SetupGears()
         {
+            GearSetup gearSetup = carStat.transmission;
             gears = new List<Gear>(gearSetup.GetCount());
             for (int i = 0; i < gearSetup.GetCount(); i++)
             {
-                gears.Add(new Gear(i + 1, gearSetup.maxSpeedPerGear[i]));
+                gears.Add(new Gear(i + 1, gearSetup.maxSpeedPerGear[i] + baseMaxSpeed * 0.1f));
             }
         }
 

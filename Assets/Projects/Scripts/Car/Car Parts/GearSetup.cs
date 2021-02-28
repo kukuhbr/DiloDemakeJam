@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using UnityEngine;
 
-namespace NFS.Car.Movements
+namespace NFS.Car.Parts
 {
     [CreateAssetMenu(fileName = "GearSetup", menuName = "ScriptableObjects/Cars/GearSetup", order = 1)]
     public class GearSetup : ScriptableObject

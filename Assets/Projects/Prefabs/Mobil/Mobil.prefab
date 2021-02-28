@@ -607,7 +607,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1457457757}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.4, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3788096633413075612}
@@ -631,7 +631,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cedee65eb163ea04b8492eb91205b3a2, type: 2}
+  - {fileID: 2100000, guid: bf74ca2207363c944a77ccfc165dedd4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -663,13 +663,22 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.097221375
+        value: 0.06944275
         inSlope: 0
         outSlope: 0
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -1385,6 +1394,7 @@ GameObject:
   - component: {fileID: 3681900142858533916}
   - component: {fileID: 545102785}
   - component: {fileID: 7965984501599479337}
+  - component: {fileID: 7266818155308742707}
   m_Layer: 10
   m_Name: Mobil
   m_TagString: Car
@@ -1476,8 +1486,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wheelDrive: {fileID: 3681900144173035580}
-  engine: {fileID: 11400000, guid: eea02b7c9024bd24fb3a50bf3fba4fec, type: 2}
-  gearSetup: {fileID: 11400000, guid: 7b9d057e8d8717f4f80619966b75744a, type: 2}
+  carStat: {fileID: 7266818155308742707}
   gearShiftCategory: {fileID: 11400000, guid: ed34ce0a9a2804246b1cc7fe6c826fd9, type: 2}
   maxRPM: 8500
 --- !u!114 &3681900142858533918
@@ -1495,6 +1504,8 @@ MonoBehaviour:
   nos: {fileID: 11400000, guid: 9aaff6eaf27008a48a7d7e7213670b0e, type: 2}
   gearEngine: {fileID: 3681900142858533917}
   nosLine: {fileID: 1457457759}
+  nosLineStart: {fileID: 1457457758}
+  nosLineEnd: {fileID: 6930174347034898412}
 --- !u!114 &3681900142858533919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1569,7 +1580,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flipRotation: {x: 0, y: 0, z: 0, w: 0}
-  lineRenderer: {fileID: 0}
+--- !u!114 &7266818155308742707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3681900144173035577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96ea99d118226de49b93d4d28a0f6b26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nos: {fileID: 11400000, guid: 9aaff6eaf27008a48a7d7e7213670b0e, type: 2}
+  engine: {fileID: 11400000, guid: eea02b7c9024bd24fb3a50bf3fba4fec, type: 2}
+  transmission: {fileID: 11400000, guid: 7b9d057e8d8717f4f80619966b75744a, type: 2}
 --- !u!1 &3681900144374368256
 GameObject:
   m_ObjectHideFlags: 0
@@ -1631,6 +1656,36 @@ WheelCollider:
     m_AsymptoteValue: 0.75
     m_Stiffness: 1
   m_Enabled: 1
+--- !u!1 &3977840123428584884
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6930174347034898412}
+  m_Layer: 0
+  m_Name: Nos Line End
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6930174347034898412
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3977840123428584884}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.4, y: 0.2, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3788096633413075612}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!64 &3681900144152443992
 MeshCollider:
   m_ObjectHideFlags: 0

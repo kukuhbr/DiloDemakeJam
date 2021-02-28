@@ -15,6 +15,10 @@ namespace NFS.Car.Movements
         public Nos nos;
         public GearEngine gearEngine;
         public LineRenderer nosLine;
+
+        public Transform nosLineStart;
+        public Transform nosLineEnd;
+
         private float currentPower;
         private float currentCapacity;
         private bool isAllowNos = false;
@@ -45,7 +49,7 @@ namespace NFS.Car.Movements
             if ((currentPower == 0) && (currentCapacity <= nos.capacity))
             {
                 currentCapacity = currentCapacity + (1 * nos.regenSpeed * Time.deltaTime);
-                //nosLine.enabled = false;
+                nosLine.enabled = false;
             }
             if (currentCapacity > nos.capacity)
             {
@@ -57,12 +61,12 @@ namespace NFS.Car.Movements
         public void DoNos(float inputForce)
         {
             if (currentCapacity > 0)
-            {                
+            {
                 currentPower = nos.power * inputForce;
                 currentCapacity = currentCapacity - 1 * Time.deltaTime;
                 nosLine.enabled = true;
-                nosLine.SetPosition(0, transform.position);
-                nosLine.SetPosition(1, transform.forward * -10);
+                nosLine.SetPosition(0, nosLineStart.position);
+                nosLine.SetPosition(1, nosLineEnd.position);
                 if (gearEngine.GetCurrentSpeed() <= gearEngine.GetCurrentMaxSpeed())
                 {
                     gameObject.GetComponent<Rigidbody>().AddForce(transform.forward * currentPower, ForceMode.Impulse);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace NFS.Car.Movements
+namespace NFS.Car.Parts
 {
     public class Gear
     {
